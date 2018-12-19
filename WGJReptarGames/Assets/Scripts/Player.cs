@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     Vector3 velocity;
     float velocityXSmoothing;
 
+    //These two variables are for Animation purposes
+    public bool left;       // a boolean variable to know if the player is moving left or not
+    public bool idle;       // a boolean variable to know if the player is idle
+
     Controller2D controller;
 
     void Start()
@@ -47,5 +51,31 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        GetPlayerDirection();
+        print("Velocity: " + velocity.x);
+
     }
+
+    private void GetPlayerDirection() {
+        
+        if (velocity.x < -0.9f) {
+
+            left = true;    //If the player is moving left set the left Boolean to be true
+            idle = false;   //If the player is moving set idle to false
+
+        } else if (velocity.x > 0.9f) {
+
+            left = false;   //If the player is moving Right set the left Boolean to be False
+            idle = false;   //If the player is moving set idle to false
+
+        } else if ((velocity.x > -0.9f) && (velocity.x < 0.9)) {
+
+            idle = true;    //When the player stops moving set Idle to true;
+
+        }
+
+    }
+
+
 }
