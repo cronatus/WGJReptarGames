@@ -52,13 +52,13 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        GetPlayerDirection();
-        print("Velocity: " + velocity.x);
+        GetPlayerDirection();   // calls the GetPlayerDirection method to figure out if the player is going left or right
+        //print("Velocity: " + velocity.x);  // used to determine velocity values when implementing directional animations
 
     }
 
     private void GetPlayerDirection() {
-        
+
         if (velocity.x < -0.9f) {
 
             left = true;    //If the player is moving left set the left Boolean to be true
