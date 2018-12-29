@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour {
 
     public float speed; //the base speed of the enemy
     private Transform playerPos; // the position of the player in the game world.
-    private float direction;
+    private float direction; // used to figure out which direction the player is in, in relation to the enemy.
 
     private bool isDead;
 
@@ -25,9 +25,21 @@ public class Enemy : MonoBehaviour {
 
         transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime); // move the enemy towards the player
         //print("enemy: " + (transform.position.x - playerPos.position.x)); // used to figure out directional velocities for implementation of directional animations
-        direction = transform.position.x - playerPos.position.x; // determine a negative of positive float number to determine the direction of the player relevant 
+        direction = transform.position.x - playerPos.position.x; // determine a negative or positive float number to determine which direction the enemy will be going to go towards the player
+                                                                 // a positive float means the player is to the left of the enemy and a negative means the player is to the right
 
         GetEnemyDirection();
+
+        if(left == true) {
+
+            gameObject.GetComponent<Animator>().SetLayerWeight(1, 1f);  // set the enemy animator to the layer using the left animation
+
+        } else if (left == false) {
+
+            gameObject.GetComponent<Animator>().SetLayerWeight(1, 0f);  // set the enemy animator to the layer using the right animation
+
+        }
+
         
     }
 
