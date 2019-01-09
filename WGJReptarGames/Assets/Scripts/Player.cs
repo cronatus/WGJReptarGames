@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     //These two variables are for Animation purposes
     public bool left;       // a boolean variable to know if the player is moving left or not
     public bool idle;       // a boolean variable to know if the player is idle
+    public bool jumping;    // a boolean variable to know if the player is jumping at the moment.
 
     Controller2D controller;
 
@@ -45,6 +46,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
         {
             velocity.y = jumpVelocity;
+            jumping = true;
+            
+        } else if (controller.collisions.below) {
+
+            jumping = false;
+
         }
 
         float targetVelocityX = input.x * moveSpeed;
